@@ -165,7 +165,12 @@ label{
 #shotResult{
   padding:12px;
   background:white;
+  --shot-gap:7px;
+  --shot-font:10px;
+  --shot-count:12px;
+  --shot-space:16px;
 }
+
 .shot-title{
   text-align:center;
   font-size:19px;
@@ -173,15 +178,18 @@ label{
   margin:2px 0 16px;
   overflow-wrap:anywhere;
 }
+
 .shot-character{
-  margin:0 0 16px;
-  padding:0 0 14px;
+  margin:0 0 var(--shot-space);
+  padding:0 0 13px;
   border-bottom:1px solid #dfe5e9;
 }
+
 .shot-character:last-child{
   border-bottom:0;
   margin-bottom:0;
 }
+
 .shot-character-heading{
   display:flex;
   align-items:center;
@@ -189,16 +197,19 @@ label{
   gap:8px;
   margin:0 0 10px;
 }
+
 .shot-character-heading h3{
   font-size:15px;
   margin:0;
   overflow-wrap:anywhere;
 }
+
 .shot-grid{
   display:grid;
   grid-template-columns:repeat(var(--cols,4),minmax(0,1fr));
-  gap:7px;
+  gap:var(--shot-gap);
 }
+
 .shot-card{
   min-width:0;
   border:0;
@@ -207,31 +218,35 @@ label{
   text-align:center;
   background:white;
 }
+
 .shot-card img{
   display:block;
   width:100%;
   aspect-ratio:1;
   object-fit:cover;
-  border-radius:7px;
+  border-radius:6px;
   background:#f1f3f5;
 }
+
 .shot-card .edition{
-  font-size:10px;
-  line-height:1.25;
-  margin-top:4px;
+  font-size:var(--shot-font);
+  line-height:1.2;
+  margin-top:3px;
   overflow-wrap:anywhere;
   display:-webkit-box;
   -webkit-line-clamp:2;
   -webkit-box-orient:vertical;
   overflow:hidden;
 }
+
 .shot-card .count{
   display:inline-block;
-  font-size:12px;
+  font-size:var(--shot-count);
   font-weight:750;
   color:#6389a2;
   margin-top:2px;
 }
+
 .shot-total{
   text-align:center;
   font-size:16px;
@@ -241,6 +256,7 @@ label{
   padding:13px;
   margin-top:12px;
 }
+
 .shot-empty{
   text-align:center;
   color:#89949d;
@@ -248,11 +264,49 @@ label{
   font-size:13px;
 }
 
+/* 登録種類数に応じたコンパクト表示 */
+#shotResult.dense-5{
+  --shot-gap:5px;
+  --shot-font:9.5px;
+  --shot-count:11px;
+  --shot-space:12px;
+}
+
+#shotResult.dense-6{
+  --shot-gap:4px;
+  --shot-font:9px;
+  --shot-count:10px;
+  --shot-space:10px;
+}
+
+#shotResult.dense-7{
+  --shot-gap:3px;
+  --shot-font:8.5px;
+  --shot-count:9px;
+  --shot-space:8px;
+}
+
+#shotResult.dense-8{
+  --shot-gap:2px;
+  --shot-font:8px;
+  --shot-count:9px;
+  --shot-space:7px;
+}
+
+#shotResult.dense-7 .shot-character-heading h3,
+#shotResult.dense-8 .shot-character-heading h3{
+  font-size:13px;
+}
+
+#shotResult.dense-7 .shot-character-heading,
+#shotResult.dense-8 .shot-character-heading{
+  margin-bottom:6px;
+}
+
 @media(max-width:360px){
   main{padding:9px}
   #shotResult{padding:8px}
-  .shot-grid{gap:4px}
-  .shot-card .edition{font-size:9px}
+  .shot-grid{gap:3px}
 }
 
 @media print{
@@ -340,6 +394,7 @@ label{
     <p class="muted">
       ユニットを選択すると、そのユニットのグッズだけが表示されるよ。
       表示された画面をスクリーンショットしてね。
+      グッズの種類数に合わせて画像サイズと列数が自動で変わるよ。
     </p>
 
     <div class="actions">
@@ -1090,7 +1145,29 @@ function loadShotUnits(){
   renderShot();
 }
 
-/* コンパクトな一覧表示 */
+/* 登録種類数に合わせて列数を自動調整 */
+function getShotDensity(totalKinds){
+
+  if(totalKinds>=32){
+    return 8;
+  }
+
+  if(totalKinds>=22){
+    return 7;
+  }
+
+  if(totalKinds>=14){
+    return 6;
+  }
+
+  if(totalKinds>=8){
+    return 5;
+  }
+
+  return 4;
+}
+
+/* スクショ表示 */
 function renderShot(){
 
   const o=data.offices.find(
@@ -1103,19 +1180,23 @@ function renderShot(){
 
   const el=$("shotResult");
 
+  el.classList.remove(
+    "dense-5",
+    "dense-6",
+    "dense-7",
+    "dense-8"
+  );
+
   if(!u){
     el.innerHTML="<div class='shot-empty'>ユニットを選択してね。</div>";
     return;
   }
 
   let total=0;
-  let html=`
-    <div class="shot-title">${esc(u.name)}</div>
-  `;
+  let totalKinds=0;
 
-  let visibleCharacters=0;
-
-  u.characters.forEach(c=>{
+  /* 表示対象のキャラクターとグッズを先に整理 */
+  const characterData=u.characters.map(c=>{
 
     const cards=[...c.cards]
       .filter(x=>(Number(x.count)||0)>0)
@@ -1125,28 +1206,46 @@ function renderShot(){
       (s,x)=>s+(Number(x.count)||0),0
     );
 
-    if(!cards.length)return;
+    return{
+      name:c.name,
+      cards,
+      sub
+    };
 
-    visibleCharacters++;
-    total+=sub;
+  }).filter(c=>c.cards.length>0);
 
-    /* 種類数に合わせて列数を調整 */
-    let cols=4;
+  /* ユニット全体の種類数 */
+  totalKinds=characterData.reduce(
+    (s,c)=>s+c.cards.length,0
+  );
 
-    if(cards.length>=12)cols=5;
-    if(cards.length>=25)cols=6;
+  /* 種類数から列数を決定 */
+  const cols=getShotDensity(totalKinds);
+
+  /* 表示密度を変更 */
+  if(cols>4){
+    el.classList.add("dense-"+cols);
+  }
+
+  let html=`
+    <div class="shot-title">${esc(u.name)}</div>
+  `;
+
+  characterData.forEach(c=>{
+
+    total+=c.sub;
 
     html+=`
       <div class="shot-character">
 
         <div class="shot-character-heading">
           <h3>${esc(c.name)}</h3>
-          <span class="tag">${sub}枚</span>
+          <span class="tag">${c.sub}枚</span>
         </div>
 
         <div class="shot-grid" style="--cols:${cols}">
 
-          ${cards.map(x=>`
+          ${c.cards.map(x=>`
             <div class="shot-card">
 
               <img src="${x.image}" alt="">
@@ -1168,7 +1267,7 @@ function renderShot(){
     `;
   });
 
-  if(!visibleCharacters){
+  if(!characterData.length){
 
     html+=`
       <div class="shot-empty">
