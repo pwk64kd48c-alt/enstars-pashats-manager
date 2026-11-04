@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -91,50 +90,58 @@ label{
   font-size:11px;
   margin:3px;
 }
-.cardgrid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
-}
-.goods{
-  min-width:0;
-  border:1px solid var(--line);
-  border-radius:9px;
-  padding:5px;
-  background:white;
-  text-align:center;
-}
-.goods img{
-  display:block;
-  width:100%;
-  aspect-ratio:1;
-  object-fit:cover;
-  border-radius:6px;
-  background:#f1f3f5;
-}
-.edition{
-  font-size:11px;
-  font-weight:700;
-  margin-top:5px;
-  overflow-wrap:anywhere;
-}
-.count{
-  font-size:12px;
-  color:#6389a2;
-  font-weight:700;
-  margin-top:3px;
-}
-.character-block{
-  margin:12px 0 18px;
-  padding-bottom:14px;
-  border-bottom:1px solid var(--line);
-}
 .total{
   background:var(--pale);
   border-radius:9px;
-  padding:10px;
+  padding:11px;
   font-weight:700;
   margin:10px 0;
+}
+.global-total{
+  background:#edf5fa;
+  border:1px solid #dceaf3;
+  border-radius:11px;
+  padding:13px;
+  margin-bottom:13px;
+  font-weight:750;
+  text-align:center;
+}
+.global-total strong{
+  font-size:22px;
+  color:#6389a2;
+}
+
+/* 抱き合わせチェック */
+.bundle-check{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#f7f9fb;
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:10px;
+  margin:8px 0;
+}
+.bundle-check input{
+  width:18px;
+  height:18px;
+  margin:0;
+  accent-color:#6389a2;
+}
+.bundle-check label{
+  margin:0;
+  font-size:13px;
+}
+.bundle-mark{
+  color:#d49a38;
+  font-size:19px;
+  font-weight:800;
+  line-height:1;
+}
+.item-bundle{
+  color:#d49a38;
+  font-size:16px;
+  margin-left:5px;
 }
 
 /* トリミング */
@@ -170,7 +177,6 @@ label{
   --shot-count:12px;
   --shot-space:16px;
 }
-
 .shot-title{
   text-align:center;
   font-size:19px;
@@ -178,18 +184,15 @@ label{
   margin:2px 0 16px;
   overflow-wrap:anywhere;
 }
-
 .shot-character{
   margin:0 0 var(--shot-space);
   padding:0 0 13px;
   border-bottom:1px solid #dfe5e9;
 }
-
 .shot-character:last-child{
   border-bottom:0;
   margin-bottom:0;
 }
-
 .shot-character-heading{
   display:flex;
   align-items:center;
@@ -197,19 +200,16 @@ label{
   gap:8px;
   margin:0 0 10px;
 }
-
 .shot-character-heading h3{
   font-size:15px;
   margin:0;
   overflow-wrap:anywhere;
 }
-
 .shot-grid{
   display:grid;
   grid-template-columns:repeat(var(--cols,4),minmax(0,1fr));
   gap:var(--shot-gap);
 }
-
 .shot-card{
   min-width:0;
   border:0;
@@ -217,8 +217,10 @@ label{
   padding:2px;
   text-align:center;
   background:white;
+  display:flex;
+  flex-direction:column;
+  position:relative;
 }
-
 .shot-card img{
   display:block;
   width:100%;
@@ -227,7 +229,6 @@ label{
   border-radius:6px;
   background:#f1f3f5;
 }
-
 .shot-card .edition{
   font-size:var(--shot-font);
   line-height:1.2;
@@ -237,16 +238,31 @@ label{
   -webkit-line-clamp:2;
   -webkit-box-orient:vertical;
   overflow:hidden;
+  height:2.4em;
+  min-height:2.4em;
 }
-
 .shot-card .count{
-  display:inline-block;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size:var(--shot-count);
+  line-height:1.2;
   font-weight:750;
   color:#6389a2;
-  margin-top:2px;
+  margin-top:auto;
+  min-height:1.5em;
 }
-
+.shot-star{
+  position:absolute;
+  top:4px;
+  right:5px;
+  z-index:2;
+  color:#e3a52e;
+  font-size:19px;
+  line-height:1;
+  text-shadow:0 1px 3px #fff,0 0 4px #fff;
+  pointer-events:none;
+}
 .shot-total{
   text-align:center;
   font-size:16px;
@@ -256,7 +272,13 @@ label{
   padding:13px;
   margin-top:12px;
 }
-
+.shot-global-total{
+  text-align:center;
+  font-size:12px;
+  color:#6389a2;
+  font-weight:700;
+  margin-top:8px;
+}
 .shot-empty{
   text-align:center;
   color:#89949d;
@@ -271,44 +293,37 @@ label{
   --shot-count:11px;
   --shot-space:12px;
 }
-
 #shotResult.dense-6{
   --shot-gap:4px;
   --shot-font:9px;
   --shot-count:10px;
   --shot-space:10px;
 }
-
 #shotResult.dense-7{
   --shot-gap:3px;
   --shot-font:8.5px;
   --shot-count:9px;
   --shot-space:8px;
 }
-
 #shotResult.dense-8{
   --shot-gap:2px;
   --shot-font:8px;
   --shot-count:9px;
   --shot-space:7px;
 }
-
 #shotResult.dense-7 .shot-character-heading h3,
 #shotResult.dense-8 .shot-character-heading h3{
   font-size:13px;
 }
-
 #shotResult.dense-7 .shot-character-heading,
 #shotResult.dense-8 .shot-character-heading{
   margin-bottom:6px;
 }
-
 @media(max-width:360px){
   main{padding:9px}
   #shotResult{padding:8px}
   .shot-grid{gap:3px}
 }
-
 @media print{
   header,.no-print{display:none!important}
   body{background:white}
@@ -341,6 +356,10 @@ label{
 
 <!-- グッズ管理 -->
 <section id="managePage">
+
+  <div class="global-total" id="manageGlobalTotal">
+    全体の迷子合計：<strong>0</strong>枚
+  </div>
 
   <div class="panel">
     <h2>事務所</h2>
@@ -391,10 +410,14 @@ label{
     <label>ユニット</label>
     <select id="shotUnit" onchange="renderShot()"></select>
 
+    <label>弾で絞り込み</label>
+    <select id="shotEdition" onchange="renderShot()">
+      <option value="__all__">すべて表示</option>
+    </select>
+
     <p class="muted">
-      ユニットを選択すると、そのユニットのグッズだけが表示されるよ。
+      ユニットと弾を選択すると、該当するグッズだけが表示されるよ。
       表示された画面をスクリーンショットしてね。
-      グッズの種類数に合わせて画像サイズと列数が自動で変わるよ。
     </p>
 
     <div class="actions">
@@ -509,20 +532,54 @@ const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
 /* 種類一覧 */
 const editions=[
   ["Vol.1",[]],
-  ["Vol.2",["Private","Action"]],
+  ["Vol.2",[]],
   ["7周年",[]],
   ["SHUFFLE",[]],
   ["Vol.3",[]],
   ["COVER SONG",[]],
   ["Vol.4",[]],
   ["Vol.5",[]],
-  ["Vol.6",["Private","Action"]],
+  ["Vol.6",[]],
   ["debut collection",[]],
   ["debut collection-2",[]],
   ["10 UNIT SONG",[]],
-  ["Vol.7",["Action"]],
+  ["Vol.7",[]],
   ["その他",[]]
 ];
+
+/* 旧Private・Actionデータを削除 */
+const removedEditions=[
+  "Vol.2｜Private",
+  "Vol.2｜Action",
+  "Vol.6｜Private",
+  "Vol.6｜Action",
+  "Vol.7｜Action"
+];
+
+function migrateOldEditions(){
+
+  let changed=false;
+
+  data.offices.forEach(o=>{
+    (o.units||[]).forEach(u=>{
+      (u.characters||[]).forEach(c=>{
+
+        const before=(c.cards||[]).length;
+
+        c.cards=(c.cards||[]).filter(card=>
+          !removedEditions.includes(card.edition)
+        );
+
+        if(c.cards.length!==before){
+          changed=true;
+        }
+
+      });
+    });
+  });
+
+  return changed;
+}
 
 /* データベース */
 function openDB(){
@@ -546,6 +603,7 @@ function save(){
 
     tx.oncomplete=()=>{
       $("notice").textContent="保存しました ✓";
+      updateGlobalTotal();
       resolve();
     };
 
@@ -560,6 +618,32 @@ function load(){
     r.onsuccess=()=>resolve(r.result);
     r.onerror=()=>reject(r.error);
   });
+}
+
+/* 全体の迷子枚数 */
+function getGlobalTotal(){
+
+  let total=0;
+
+  data.offices.forEach(o=>{
+    (o.units||[]).forEach(u=>{
+      (u.characters||[]).forEach(c=>{
+        (c.cards||[]).forEach(card=>{
+          total+=Number(card.count)||0;
+        });
+      });
+    });
+  });
+
+  return total;
+}
+
+function updateGlobalTotal(){
+
+  const total=getGlobalTotal();
+
+  $("manageGlobalTotal").innerHTML=
+    `全体の迷子合計：<strong>${total}</strong>枚`;
 }
 
 /* 選択データ */
@@ -785,24 +869,10 @@ function selectCharacter(id){
 /* 種類選択 */
 function options(){
 
-  let a=[];
-
-  editions.forEach(([n,v])=>{
-
-    if(n==="その他"){
-      a.push({value:"その他",label:"その他"});
-    }
-    else if(v.length){
-      v.forEach(x=>a.push({
-        value:n+"｜"+x,
-        label:n+"（"+x+"）"
-      }));
-    }
-    else{
-      a.push({value:n,label:n});
-    }
-
-  });
+  let a=editions.map(([n])=>({
+    value:n,
+    label:n
+  }));
 
   (data.customEditions||[]).forEach(x=>{
     if(!a.some(y=>y.value===x)){
@@ -834,8 +904,11 @@ function renderGoods(){
       style="width:65px;height:65px;object-fit:cover;border-radius:7px">
 
       <div style="flex:1;min-width:0">
-        <div class="item-title">${esc(x.edition)}</div>
-        <div class="muted">迷子枚数：${x.count}枚</div>
+        <div class="item-title">
+          ${esc(x.edition)}
+          ${x.bundle?'<span class="item-bundle">☆</span>':""}
+        </div>
+        <div class="muted">迷子枚数：${Number(x.count)||0}枚</div>
 
         <div class="actions">
           <button class="small sub" onclick="editCard('${x.id}')">編集</button>
@@ -872,6 +945,11 @@ function addGoods(){
 
     <label>迷子枚数</label>
     <input id="cnt" type="number" min="0" value="1">
+
+    <div class="bundle-check">
+      <input id="bundle" type="checkbox">
+      <label for="bundle">☆ 抱き合わせ対象にする</label>
+    </div>
 
     <label>写真</label>
     <input id="photo" type="file" accept="image/*">
@@ -925,7 +1003,8 @@ function addGoods(){
       count:Math.max(
         0,
         parseInt(wrap.querySelector("#cnt").value)||0
-      )
+      ),
+      bundle:wrap.querySelector("#bundle").checked
     };
 
     openCrop(f);
@@ -1057,7 +1136,8 @@ async function saveCroppedImage(){
     id:uid(),
     edition:cropTarget.edition,
     count:cropTarget.count,
-    image
+    image,
+    bundle:cropTarget.bundle
   });
 
   try{
@@ -1097,7 +1177,14 @@ function editCard(id){
 
   if(e?.trim())x.edition=e.trim();
 
-  save().then(renderGoods);
+  x.bundle=confirm(
+    "抱き合わせ対象にする場合はOK、☆を外す場合はキャンセルを押してね。"
+  );
+
+  save().then(()=>{
+    renderGoods();
+    renderShot();
+  });
 }
 
 /* 削除 */
@@ -1107,7 +1194,10 @@ function deleteCard(id){
 
   character().cards=character().cards.filter(x=>x.id!==id);
 
-  save().then(renderGoods);
+  save().then(()=>{
+    renderGoods();
+    renderShot();
+  });
 }
 
 /* スクショ画面 */
@@ -1142,7 +1232,30 @@ function loadShotUnits(){
     $("shotUnit").value=oldUnit;
   }
 
+  updateShotEditionOptions();
   renderShot();
+}
+
+/* 弾の絞り込み選択肢 */
+function updateShotEditionOptions(){
+
+  const select=$("shotEdition");
+  const oldValue=select.value;
+
+  const all=options();
+
+  select.innerHTML=`
+    <option value="__all__">すべて表示</option>
+    ${all.filter(x=>x.value!=="その他").map(x=>`
+      <option value="${esc(x.value)}">${esc(x.label)}</option>
+    `).join("")}
+  `;
+
+  if(all.some(x=>x.value===oldValue)){
+    select.value=oldValue;
+  }else{
+    select.value="__all__";
+  }
 }
 
 /* 登録種類数に合わせて列数を自動調整 */
@@ -1195,11 +1308,17 @@ function renderShot(){
   let total=0;
   let totalKinds=0;
 
-  /* 表示対象のキャラクターとグッズを先に整理 */
+  const selectedEdition=$("shotEdition").value;
+
+  /* 表示対象のキャラクターとグッズを整理 */
   const characterData=u.characters.map(c=>{
 
     const cards=[...c.cards]
       .filter(x=>(Number(x.count)||0)>0)
+      .filter(x=>
+        selectedEdition==="__all__"||
+        x.edition===selectedEdition
+      )
       .sort((a,b)=>rank(a.edition)-rank(b.edition));
 
     const sub=cards.reduce(
@@ -1214,15 +1333,12 @@ function renderShot(){
 
   }).filter(c=>c.cards.length>0);
 
-  /* ユニット全体の種類数 */
   totalKinds=characterData.reduce(
     (s,c)=>s+c.cards.length,0
   );
 
-  /* 種類数から列数を決定 */
   const cols=getShotDensity(totalKinds);
 
-  /* 表示密度を変更 */
   if(cols>4){
     el.classList.add("dense-"+cols);
   }
@@ -1248,6 +1364,8 @@ function renderShot(){
           ${c.cards.map(x=>`
             <div class="shot-card">
 
+              ${x.bundle?'<span class="shot-star">☆</span>':""}
+
               <img src="${x.image}" alt="">
 
               <div class="edition">
@@ -1271,7 +1389,7 @@ function renderShot(){
 
     html+=`
       <div class="shot-empty">
-        このユニットには、表示できるグッズがまだないよ。
+        この条件で表示できるグッズはまだないよ。
       </div>
     `;
   }
@@ -1279,6 +1397,10 @@ function renderShot(){
   html+=`
     <div class="shot-total">
       ユニット合計：${total}枚
+    </div>
+
+    <div class="shot-global-total">
+      全体の迷子合計：${getGlobalTotal()}枚
     </div>
   `;
 
@@ -1327,6 +1449,18 @@ async function importBackup(){
 
     data.customEditions=data.customEditions||[];
 
+    data.offices.forEach(o=>{
+      o.units||=[];
+      o.units.forEach(u=>{
+        u.characters||=[];
+        u.characters.forEach(c=>{
+          c.cards||=[];
+        });
+      });
+    });
+
+    migrateOldEditions();
+
     await save();
 
     renderAll();
@@ -1343,6 +1477,7 @@ async function importBackup(){
 function renderAll(){
 
   renderOffices();
+  updateGlobalTotal();
 
   if(selectedOffice&&office())renderUnits();
 
@@ -1376,16 +1511,30 @@ function renderAll(){
 
         u.characters.forEach(c=>{
           c.cards||=[];
+          c.cards.forEach(card=>{
+            if(typeof card.bundle!=="boolean"){
+              card.bundle=false;
+            }
+          });
         });
 
       });
 
     });
 
+    /* 旧Private・Actionデータを整理 */
+    const migrated=migrateOldEditions();
+
     renderAll();
 
-    $("notice").textContent=
-      "準備OK！前の登録データを引き継いだよ。";
+    if(migrated){
+      await save();
+      $("notice").textContent=
+        "準備OK！旧Private／Actionの登録を整理してデータを引き継いだよ。";
+    }else{
+      $("notice").textContent=
+        "準備OK！前の登録データを引き継いだよ。";
+    }
 
   }catch(e){
 
