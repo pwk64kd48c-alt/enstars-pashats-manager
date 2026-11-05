@@ -212,8 +212,6 @@ label{
   flex-direction:column;
   position:relative;
 }
-
-/* 写真は正方形で統一 */
 .shot-card img{
   display:block;
   width:100%;
@@ -356,7 +354,6 @@ label{
 
 </section>
 
-<!-- スクショ画面 -->
 <section id="shotPage" class="hidden">
 
   <div class="panel no-print shot-settings">
@@ -385,7 +382,6 @@ label{
 
 </section>
 
-<!-- バックアップ -->
 <section id="backupPage" class="hidden">
   <div class="panel">
     <h2>バックアップ・復元</h2>
@@ -414,7 +410,6 @@ label{
 
 </main>
 
-<!-- トリミング画面 -->
 <div id="cropModal" class="hidden"
 style="position:fixed;inset:0;background:#0009;z-index:20;overflow:auto;padding:18px">
 
@@ -491,10 +486,10 @@ const editions=[
   ["その他",[]]
 ];
 
-/*
-  既存データを削除する移行処理は行わない。
-  Private / Action などの既存登録もそのまま保持する。
-*/
+/* Private / Action を含む種類名を除外 */
+function isHiddenEdition(name){
+  return /private|action/i.test(String(name||""));
+}
 
 /* データベース */
 function openDB(){
@@ -718,10 +713,14 @@ function selectCharacter(id){
 
 /* 種類選択 */
 function options(){
-  let a=editions.map(([n])=>({value:n,label:n}));
+  let a=editions
+    .filter(([n])=>!isHiddenEdition(n))
+    .map(([n])=>({value:n,label:n}));
 
   (data.customEditions||[]).forEach(x=>{
-    if(!a.some(y=>y.value===x))a.push({value:x,label:x});
+    if(!isHiddenEdition(x)&&!a.some(y=>y.value===x)){
+      a.push({value:x,label:x});
+    }
   });
 
   return a;
@@ -1018,12 +1017,12 @@ function updateShotEditionOptions(){
 
   select.innerHTML=`
     <option value="__all__">すべて表示</option>
-    ${all.filter(x=>x.value!=="その他").map(x=>`
+    ${all.filter(x=>x.value!=="その他"&&!isHiddenEdition(x.value)).map(x=>`
       <option value="${esc(x.value)}">${esc(x.label)}</option>
     `).join("")}
   `;
 
-  if(all.some(x=>x.value===oldValue))select.value=oldValue;
+  if(all.some(x=>x.value===oldValue&&!isHiddenEdition(x.value)))select.value=oldValue;
   else select.value="__all__";
 }
 
@@ -1044,6 +1043,7 @@ function renderShot(){
   const characterData=u.characters.map(c=>{
     const cards=[...(c.cards||[])]
       .filter(x=>(Number(x.count)||0)>0)
+      .filter(x=>!isHiddenEdition(x.edition))
       .filter(x=>selectedEdition==="__all__"||x.edition===selectedEdition)
       .sort((a,b)=>rank(a.edition)-rank(b.edition));
 
