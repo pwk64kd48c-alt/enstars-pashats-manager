@@ -21,7 +21,7 @@ body{
 }
 header{
   background:white;
-  padding:18px 16px;
+  padding:15px 16px;
   border-bottom:1px solid var(--line);
   position:sticky;
   top:0;
@@ -101,7 +101,7 @@ label{
   background:#edf5fa;
   border:1px solid #dceaf3;
   border-radius:11px;
-  padding:13px;
+  padding:11px;
   margin-bottom:13px;
   font-weight:750;
   text-align:center;
@@ -128,21 +128,14 @@ label{
   margin:0;
   accent-color:#6389a2;
 }
-.bundle-check label{
-  margin:0;
-  font-size:13px;
-}
+.bundle-check label{margin:0;font-size:13px}
 .bundle-mark{
   color:#d49a38;
   font-size:19px;
   font-weight:800;
   line-height:1;
 }
-.item-bundle{
-  color:#d49a38;
-  font-size:16px;
-  margin-left:5px;
-}
+.item-bundle{color:#d49a38;font-size:16px;margin-left:5px}
 
 /* トリミング */
 .cropbox{
@@ -168,40 +161,37 @@ label{
 .cropcontrols label{font-size:12px}
 .cropcontrols input{width:100%}
 
-/* スクショ専用画面 */
+/* スクショ画面 */
 #shotResult{
-  padding:12px;
+  padding:10px;
   background:white;
-  --shot-gap:7px;
+  --shot-gap:6px;
   --shot-font:10px;
   --shot-count:12px;
-  --shot-space:16px;
+  --shot-space:13px;
 }
 .shot-title{
   text-align:center;
-  font-size:19px;
+  font-size:17px;
   font-weight:800;
-  margin:2px 0 16px;
+  margin:2px 0 13px;
   overflow-wrap:anywhere;
 }
 .shot-character{
   margin:0 0 var(--shot-space);
-  padding:0 0 13px;
+  padding:0 0 10px;
   border-bottom:1px solid #dfe5e9;
 }
-.shot-character:last-child{
-  border-bottom:0;
-  margin-bottom:0;
-}
+.shot-character:last-child{border-bottom:0;margin-bottom:0}
 .shot-character-heading{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:8px;
-  margin:0 0 10px;
+  margin:0 0 8px;
 }
 .shot-character-heading h3{
-  font-size:15px;
+  font-size:14px;
   margin:0;
   overflow-wrap:anywhere;
 }
@@ -221,12 +211,14 @@ label{
   flex-direction:column;
   position:relative;
 }
+
+/* 写真を正方形に切らず、ぱしゃっつ全体が見えるように */
 .shot-card img{
   display:block;
   width:100%;
-  aspect-ratio:1;
-  object-fit:cover;
-  border-radius:6px;
+  aspect-ratio:3/4;
+  object-fit:contain;
+  border-radius:5px;
   background:#f1f3f5;
 }
 .shot-card .edition{
@@ -258,26 +250,26 @@ label{
   right:5px;
   z-index:2;
   color:#e3a52e;
-  font-size:19px;
+  font-size:18px;
   line-height:1;
   text-shadow:0 1px 3px #fff,0 0 4px #fff;
   pointer-events:none;
 }
 .shot-total{
   text-align:center;
-  font-size:16px;
+  font-size:15px;
   font-weight:800;
   background:#edf5fa;
   border-radius:10px;
-  padding:13px;
-  margin-top:12px;
+  padding:11px;
+  margin-top:10px;
 }
 .shot-global-total{
   text-align:center;
-  font-size:12px;
+  font-size:11px;
   color:#6389a2;
   font-weight:700;
-  margin-top:8px;
+  margin-top:7px;
 }
 .shot-empty{
   text-align:center;
@@ -286,53 +278,37 @@ label{
   font-size:13px;
 }
 
-/* 登録種類数に応じたコンパクト表示 */
+/* 登録数に応じて列数を調整。最大6列 */
 #shotResult.dense-5{
   --shot-gap:5px;
   --shot-font:9.5px;
   --shot-count:11px;
-  --shot-space:12px;
+  --shot-space:11px;
 }
 #shotResult.dense-6{
   --shot-gap:4px;
   --shot-font:9px;
   --shot-count:10px;
-  --shot-space:10px;
+  --shot-space:9px;
 }
-#shotResult.dense-7{
-  --shot-gap:3px;
-  --shot-font:8.5px;
-  --shot-count:9px;
-  --shot-space:8px;
-}
-#shotResult.dense-8{
-  --shot-gap:2px;
-  --shot-font:8px;
-  --shot-count:9px;
-  --shot-space:7px;
-}
-#shotResult.dense-7 .shot-character-heading h3,
-#shotResult.dense-8 .shot-character-heading h3{
+#shotResult.dense-5 .shot-character-heading h3,
+#shotResult.dense-6 .shot-character-heading h3{
   font-size:13px;
 }
-#shotResult.dense-7 .shot-character-heading,
-#shotResult.dense-8 .shot-character-heading{
-  margin-bottom:6px;
-}
+
 @media(max-width:360px){
   main{padding:9px}
-  #shotResult{padding:8px}
+  #shotResult{padding:7px}
   .shot-grid{gap:3px}
 }
+
+/* スクショ時 */
 @media print{
   header,.no-print{display:none!important}
   body{background:white}
   main{padding:0}
   #shotPage{display:block!important}
-  #shotResult{
-    border:0;
-    padding:5px;
-  }
+  #shotResult{border:0;padding:5px}
 }
 </style>
 </head>
@@ -354,7 +330,6 @@ label{
 
 <div id="notice" class="muted">読み込み中…</div>
 
-<!-- グッズ管理 -->
 <section id="managePage">
 
   <div class="global-total" id="manageGlobalTotal">
@@ -401,7 +376,7 @@ label{
 <!-- スクショ画面 -->
 <section id="shotPage" class="hidden">
 
-  <div class="panel no-print">
+  <div class="panel no-print shot-settings">
     <h2>ユニット別スクショ</h2>
 
     <label>事務所</label>
@@ -419,10 +394,6 @@ label{
       ユニットと弾を選択すると、該当するグッズだけが表示されるよ。
       表示された画面をスクリーンショットしてね。
     </p>
-
-    <div class="actions">
-      <button class="sub" onclick="window.print()">印刷・PDF保存</button>
-    </div>
   </div>
 
   <div class="panel" id="shotResult">
@@ -433,7 +404,6 @@ label{
 
 <!-- バックアップ -->
 <section id="backupPage" class="hidden">
-
   <div class="panel">
     <h2>バックアップ・復元</h2>
 
@@ -457,7 +427,6 @@ label{
       復元すると現在のデータはバックアップ内容に置き換わるよ。
     </p>
   </div>
-
 </section>
 
 </main>
@@ -467,12 +436,8 @@ label{
 style="position:fixed;inset:0;background:#0009;z-index:20;overflow:auto;padding:18px">
 
   <div class="panel" style="max-width:420px;margin:20px auto">
-
     <h2>写真をトリミング</h2>
-
-    <p class="muted">
-      写真をドラッグして位置を調整。拡大・縮小もできるよ。
-    </p>
+    <p class="muted">写真をドラッグして位置を調整。拡大・縮小もできるよ。</p>
 
     <div class="cropbox">
       <canvas id="cropCanvas" width="600" height="600"></canvas>
@@ -483,7 +448,6 @@ style="position:fixed;inset:0;background:#0009;z-index:20;overflow:auto;padding:
         拡大・縮小
         <input id="cropZoom" type="range" min="1" max="3" step=".01" value="1">
       </label>
-
       <label>
         明るさ
         <input id="cropBright" type="range" min="60" max="140" value="100">
@@ -494,7 +458,6 @@ style="position:fixed;inset:0;background:#0009;z-index:20;overflow:auto;padding:
       <button onclick="saveCroppedImage()">この写真で登録</button>
       <button class="sub" onclick="cancelCrop()">キャンセル</button>
     </div>
-
   </div>
 </div>
 
@@ -518,7 +481,6 @@ let dragY=0;
 let dragging=false;
 
 const $=id=>document.getElementById(id);
-
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
@@ -529,7 +491,6 @@ const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
   "'":"&#39;"
 }[c]));
 
-/* 種類一覧 */
 const editions=[
   ["Vol.1",[]],
   ["Vol.2",[]],
@@ -547,49 +508,16 @@ const editions=[
   ["その他",[]]
 ];
 
-/* 旧Private・Actionデータを削除 */
-const removedEditions=[
-  "Vol.2｜Private",
-  "Vol.2｜Action",
-  "Vol.6｜Private",
-  "Vol.6｜Action",
-  "Vol.7｜Action"
-];
-
-function migrateOldEditions(){
-
-  let changed=false;
-
-  data.offices.forEach(o=>{
-    (o.units||[]).forEach(u=>{
-      (u.characters||[]).forEach(c=>{
-
-        const before=(c.cards||[]).length;
-
-        c.cards=(c.cards||[]).filter(card=>
-          !removedEditions.includes(card.edition)
-        );
-
-        if(c.cards.length!==before){
-          changed=true;
-        }
-
-      });
-    });
-  });
-
-  return changed;
-}
+/*
+  既存データを削除する移行処理は行わない。
+  Private / Action などの既存登録もそのまま保持する。
+*/
 
 /* データベース */
 function openDB(){
   return new Promise((resolve,reject)=>{
     const r=indexedDB.open(DB_NAME,1);
-
-    r.onupgradeneeded=()=>{
-      r.result.createObjectStore(STORE);
-    };
-
+    r.onupgradeneeded=()=>r.result.createObjectStore(STORE);
     r.onsuccess=()=>resolve(r.result);
     r.onerror=()=>reject(r.error);
   });
@@ -598,7 +526,6 @@ function openDB(){
 function save(){
   return new Promise((resolve,reject)=>{
     const tx=db.transaction(STORE,"readwrite");
-
     tx.objectStore(STORE).put(data,"main");
 
     tx.oncomplete=()=>{
@@ -606,7 +533,6 @@ function save(){
       updateGlobalTotal();
       resolve();
     };
-
     tx.onerror=()=>reject(tx.error);
   });
 }
@@ -614,7 +540,6 @@ function save(){
 function load(){
   return new Promise((resolve,reject)=>{
     const r=db.transaction(STORE).objectStore(STORE).get("main");
-
     r.onsuccess=()=>resolve(r.result);
     r.onerror=()=>reject(r.error);
   });
@@ -622,9 +547,7 @@ function load(){
 
 /* 全体の迷子枚数 */
 function getGlobalTotal(){
-
   let total=0;
-
   data.offices.forEach(o=>{
     (o.units||[]).forEach(u=>{
       (u.characters||[]).forEach(c=>{
@@ -634,14 +557,11 @@ function getGlobalTotal(){
       });
     });
   });
-
   return total;
 }
 
 function updateGlobalTotal(){
-
   const total=getGlobalTotal();
-
   $("manageGlobalTotal").innerHTML=
     `全体の迷子合計：<strong>${total}</strong>枚`;
 }
@@ -650,11 +570,9 @@ function updateGlobalTotal(){
 function office(){
   return data.offices.find(x=>x.id===selectedOffice);
 }
-
 function unit(){
   return office()?.units.find(x=>x.id===selectedUnit);
 }
-
 function character(){
   return unit()?.characters.find(x=>x.id===selectedCharacter);
 }
@@ -664,7 +582,6 @@ function showPage(p){
   ["manage","shot","backup"].forEach(x=>{
     $(x+"Page").classList.toggle("hidden",x!==p);
   });
-
   if(p==="shot")initShot();
 }
 
@@ -675,51 +592,32 @@ function closePanel(id){
 /* 事務所追加 */
 function addOffice(){
   const n=prompt("事務所名を入力してね");
-
   if(!n?.trim())return;
 
-  data.offices.push({
-    id:uid(),
-    name:n.trim(),
-    units:[]
-  });
-
+  data.offices.push({id:uid(),name:n.trim(),units:[]});
   save().then(renderOffices);
 }
 
 /* ユニット追加 */
 function addUnit(){
   const n=prompt("ユニット名を入力してね");
-
   if(!n?.trim())return;
 
-  office().units.push({
-    id:uid(),
-    name:n.trim(),
-    characters:[]
-  });
-
+  office().units.push({id:uid(),name:n.trim(),characters:[]});
   save().then(renderUnits);
 }
 
 /* キャラクター追加 */
 function addCharacter(){
   const n=prompt("キャラクター名を入力してね");
-
   if(!n?.trim())return;
 
-  unit().characters.push({
-    id:uid(),
-    name:n.trim(),
-    cards:[]
-  });
-
+  unit().characters.push({id:uid(),name:n.trim(),cards:[]});
   save().then(renderCharacters);
 }
 
 /* 名前変更 */
 function renameItem(t,id){
-
   let a=
     t==="office"
     ?data.offices.find(x=>x.id===id)
@@ -730,7 +628,6 @@ function renameItem(t,id){
   if(!a)return;
 
   const n=prompt("新しい名前",a.name);
-
   if(n?.trim()){
     a.name=n.trim();
     save().then(renderAll);
@@ -739,44 +636,25 @@ function renameItem(t,id){
 
 /* 削除 */
 function deleteItem(t,id){
-
   if(!confirm("この項目と中の登録内容を削除する？"))return;
 
-  if(t==="office"){
-    data.offices=data.offices.filter(x=>x.id!==id);
-  }
+  if(t==="office")data.offices=data.offices.filter(x=>x.id!==id);
+  if(t==="unit")office().units=office().units.filter(x=>x.id!==id);
+  if(t==="character")unit().characters=unit().characters.filter(x=>x.id!==id);
 
-  if(t==="unit"){
-    office().units=office().units.filter(x=>x.id!==id);
-  }
-
-  if(t==="character"){
-    unit().characters=unit().characters.filter(x=>x.id!==id);
-  }
-
-  if(t==="office"){
-    selectedOffice=selectedUnit=selectedCharacter=null;
-  }
-
-  if(t==="unit"){
-    selectedUnit=selectedCharacter=null;
-  }
-
-  if(t==="character"){
-    selectedCharacter=null;
-  }
+  if(t==="office")selectedOffice=selectedUnit=selectedCharacter=null;
+  if(t==="unit")selectedUnit=selectedCharacter=null;
+  if(t==="character")selectedCharacter=null;
 
   save().then(renderAll);
 }
 
 /* 事務所表示 */
 function renderOffices(){
-
   $("officeList").innerHTML=data.offices.length
   ?data.offices.map(o=>`
     <div class="item">
       <div class="item-title">${esc(o.name)}</div>
-
       <div class="actions">
         <button class="small" onclick="selectOffice('${o.id}')">ユニットを見る</button>
         <button class="small sub" onclick="renameItem('office','${o.id}')">名前変更</button>
@@ -788,7 +666,6 @@ function renderOffices(){
 }
 
 function selectOffice(id){
-
   selectedOffice=id;
   selectedUnit=selectedCharacter=null;
 
@@ -801,17 +678,14 @@ function selectOffice(id){
 
 /* ユニット表示 */
 function renderUnits(){
-
   const o=office();
   if(!o)return;
 
   $("unitHeading").textContent=o.name+" / ユニット";
-
   $("unitList").innerHTML=o.units.length
   ?o.units.map(u=>`
     <div class="item">
       <div class="item-title">${esc(u.name)}</div>
-
       <div class="actions">
         <button class="small" onclick="selectUnit('${u.id}')">キャラクターを見る</button>
         <button class="small sub" onclick="renameItem('unit','${u.id}')">名前変更</button>
@@ -823,7 +697,6 @@ function renderUnits(){
 }
 
 function selectUnit(id){
-
   selectedUnit=id;
   selectedCharacter=null;
 
@@ -835,18 +708,15 @@ function selectUnit(id){
 
 /* キャラクター表示 */
 function renderCharacters(){
-
   const u=unit();
   if(!u)return;
 
   $("characterHeading").textContent=u.name+" / キャラクター";
-
   $("characterList").innerHTML=u.characters.length
   ?u.characters.map(c=>`
     <div class="item">
       <div class="item-title">${esc(c.name)}</div>
       <div class="muted">${c.cards.length}種類登録</div>
-
       <div class="actions">
         <button class="small" onclick="selectCharacter('${c.id}')">ぱしゃっつを見る</button>
         <button class="small sub" onclick="renameItem('character','${c.id}')">名前変更</button>
@@ -858,26 +728,17 @@ function renderCharacters(){
 }
 
 function selectCharacter(id){
-
   selectedCharacter=id;
-
   $("goodsPanel").classList.remove("hidden");
-
   renderGoods();
 }
 
 /* 種類選択 */
 function options(){
-
-  let a=editions.map(([n])=>({
-    value:n,
-    label:n
-  }));
+  let a=editions.map(([n])=>({value:n,label:n}));
 
   (data.customEditions||[]).forEach(x=>{
-    if(!a.some(y=>y.value===x)){
-      a.push({value:x,label:x});
-    }
+    if(!a.some(y=>y.value===x))a.push({value:x,label:x});
   });
 
   return a;
@@ -890,7 +751,6 @@ function rank(s){
 
 /* ぱしゃっつ一覧 */
 function renderGoods(){
-
   const c=character();
   if(!c)return;
 
@@ -899,7 +759,6 @@ function renderGoods(){
   $("goodsList").innerHTML=c.cards.length
   ?[...c.cards].sort((a,b)=>rank(a.edition)-rank(b.edition)).map(x=>`
     <div class="item" style="display:flex;gap:10px;align-items:center">
-
       <img src="${x.image}"
       style="width:65px;height:65px;object-fit:cover;border-radius:7px">
 
@@ -909,13 +768,11 @@ function renderGoods(){
           ${x.bundle?'<span class="item-bundle">☆</span>':""}
         </div>
         <div class="muted">迷子枚数：${Number(x.count)||0}枚</div>
-
         <div class="actions">
           <button class="small sub" onclick="editCard('${x.id}')">編集</button>
           <button class="small danger" onclick="deleteCard('${x.id}')">削除</button>
         </div>
       </div>
-
     </div>
   `).join("")
   :"<p class='muted'>まだ登録がないよ。下のボタンから追加してね。</p>";
@@ -923,7 +780,6 @@ function renderGoods(){
 
 /* 追加フォーム */
 function addGoods(){
-
   const wrap=document.createElement("div");
   wrap.className="panel";
 
@@ -931,7 +787,6 @@ function addGoods(){
     <h3>ぱしゃっつを登録</h3>
 
     <label>種類</label>
-
     <select id="ed">
       ${options().map(x=>`
         <option value="${esc(x.value)}">${esc(x.label)}</option>
@@ -965,15 +820,12 @@ function addGoods(){
   const sel=wrap.querySelector("#ed");
 
   sel.onchange=()=>{
-    wrap.querySelector("#otherBox").classList.toggle(
-      "hidden",sel.value!=="その他"
-    );
+    wrap.querySelector("#otherBox").classList.toggle("hidden",sel.value!=="その他");
   };
 
   wrap.querySelector("#cancelAdd").onclick=()=>wrap.remove();
 
   wrap.querySelector("#goCrop").onclick=()=>{
-
     const f=wrap.querySelector("#photo").files[0];
 
     if(!f){
@@ -984,7 +836,6 @@ function addGoods(){
     let ed=sel.value;
 
     if(ed==="その他"){
-
       ed=wrap.querySelector("#otherName").value.trim();
 
       if(!ed){
@@ -992,18 +843,13 @@ function addGoods(){
         return;
       }
 
-      if(!data.customEditions.includes(ed)){
-        data.customEditions.push(ed);
-      }
+      if(!data.customEditions.includes(ed))data.customEditions.push(ed);
     }
 
     cropTarget={
       wrap,
       edition:ed,
-      count:Math.max(
-        0,
-        parseInt(wrap.querySelector("#cnt").value)||0
-      ),
+      count:Math.max(0,parseInt(wrap.querySelector("#cnt").value)||0),
       bundle:wrap.querySelector("#bundle").checked
     };
 
@@ -1013,11 +859,9 @@ function addGoods(){
 
 /* トリミング */
 function openCrop(file){
-
   const reader=new FileReader();
 
   reader.onload=()=>{
-
     const img=new Image();
 
     img.onload=()=>{
@@ -1027,52 +871,33 @@ function openCrop(file){
 
       $("cropZoom").value=1;
       $("cropBright").value=100;
-
       $("cropModal").classList.remove("hidden");
 
       drawCrop();
     };
 
-    img.onerror=()=>{
-      alert("この写真を読み込めなかったよ。別の画像で試してね。");
-    };
-
+    img.onerror=()=>alert("この写真を読み込めなかったよ。別の画像で試してね。");
     img.src=reader.result;
   };
 
   reader.onerror=()=>alert("写真ファイルを読み込めなかったよ");
-
   reader.readAsDataURL(file);
 }
 
 function drawCrop(){
-
   if(!cropImage)return;
 
   const c=$("cropCanvas");
   const ctx=c.getContext("2d");
-
   const z=Number($("cropZoom").value);
 
-  const base=600/Math.min(
-    cropImage.width,
-    cropImage.height
-  );
-
+  const base=600/Math.min(cropImage.width,cropImage.height);
   const w=cropImage.width*base*z;
   const h=cropImage.height*base*z;
 
   ctx.clearRect(0,0,600,600);
-
   ctx.filter="brightness("+$("cropBright").value+"%)";
-
-  ctx.drawImage(
-    cropImage,
-    (600-w)/2+cropX,
-    (600-h)/2+cropY,
-    w,h
-  );
-
+  ctx.drawImage(cropImage,(600-w)/2+cropX,(600-h)/2+cropY,w,h);
   ctx.filter="none";
 }
 
@@ -1083,12 +908,10 @@ $("cropCanvas").addEventListener("pointerdown",e=>{
   dragging=true;
   dragX=e.clientX;
   dragY=e.clientY;
-
   $("cropCanvas").setPointerCapture(e.pointerId);
 });
 
 $("cropCanvas").addEventListener("pointermove",e=>{
-
   if(!dragging)return;
 
   const r=$("cropCanvas").getBoundingClientRect();
@@ -1106,30 +929,23 @@ $("cropCanvas").addEventListener("pointerup",()=>dragging=false);
 $("cropCanvas").addEventListener("pointercancel",()=>dragging=false);
 
 function cancelCrop(){
-
   $("cropModal").classList.add("hidden");
-
   cropImage=null;
   cropTarget=null;
 }
 
 /* 写真保存 */
 async function saveCroppedImage(){
-
   if(!cropImage||!cropTarget)return;
 
   const c=$("cropCanvas");
   const small=document.createElement("canvas");
-
   small.width=450;
   small.height=450;
 
-  small.getContext("2d").drawImage(
-    c,0,0,600,600,0,0,450,450
-  );
+  small.getContext("2d").drawImage(c,0,0,600,600,0,0,450,450);
 
   const image=small.toDataURL("image/jpeg",.78);
-
   const ch=character();
 
   ch.cards.push({
@@ -1141,45 +957,30 @@ async function saveCroppedImage(){
   });
 
   try{
-
     await save();
-
     cropTarget.wrap.remove();
-
     cancelCrop();
-
     renderGoods();
-
   }catch(e){
-
     alert("保存できなかったよ。写真を小さくして再度試してね。");
   }
 }
 
 /* 編集 */
 function editCard(id){
-
   const c=character();
   const x=c.cards.find(a=>a.id===id);
-
   if(!x)return;
 
   const n=prompt("迷子枚数",x.count);
-
   if(n===null)return;
 
   x.count=Math.max(0,parseInt(n)||0);
 
-  const e=prompt(
-    "種類名（変更しない場合はそのまま）",
-    x.edition
-  );
-
+  const e=prompt("種類名（変更しない場合はそのまま）",x.edition);
   if(e?.trim())x.edition=e.trim();
 
-  x.bundle=confirm(
-    "抱き合わせ対象にする場合はOK、☆を外す場合はキャンセルを押してね。"
-  );
+  x.bundle=confirm("抱き合わせ対象にする場合はOK、☆を外す場合はキャンセルを押してね。");
 
   save().then(()=>{
     renderGoods();
@@ -1189,7 +990,6 @@ function editCard(id){
 
 /* 削除 */
 function deleteCard(id){
-
   if(!confirm("このぱしゃっつを削除する？"))return;
 
   character().cards=character().cards.filter(x=>x.id!==id);
@@ -1202,46 +1002,35 @@ function deleteCard(id){
 
 /* スクショ画面 */
 function initShot(){
-
   const oldOffice=$("shotOffice").value;
 
   $("shotOffice").innerHTML=data.offices.map(o=>`
     <option value="${o.id}">${esc(o.name)}</option>
   `).join("");
 
-  if(data.offices.some(o=>o.id===oldOffice)){
-    $("shotOffice").value=oldOffice;
-  }
+  if(data.offices.some(o=>o.id===oldOffice))$("shotOffice").value=oldOffice;
 
   loadShotUnits();
 }
 
 function loadShotUnits(){
-
-  const o=data.offices.find(
-    x=>x.id===$("shotOffice").value
-  );
-
+  const o=data.offices.find(x=>x.id===$("shotOffice").value);
   const oldUnit=$("shotUnit").value;
 
   $("shotUnit").innerHTML=(o?.units||[]).map(u=>`
     <option value="${u.id}">${esc(u.name)}</option>
   `).join("");
 
-  if((o?.units||[]).some(u=>u.id===oldUnit)){
-    $("shotUnit").value=oldUnit;
-  }
+  if((o?.units||[]).some(u=>u.id===oldUnit))$("shotUnit").value=oldUnit;
 
   updateShotEditionOptions();
   renderShot();
 }
 
-/* 弾の絞り込み選択肢 */
+/* 弾の絞り込み */
 function updateShotEditionOptions(){
-
   const select=$("shotEdition");
   const oldValue=select.value;
-
   const all=options();
 
   select.innerHTML=`
@@ -1251,54 +1040,24 @@ function updateShotEditionOptions(){
     `).join("")}
   `;
 
-  if(all.some(x=>x.value===oldValue)){
-    select.value=oldValue;
-  }else{
-    select.value="__all__";
-  }
+  if(all.some(x=>x.value===oldValue))select.value=oldValue;
+  else select.value="__all__";
 }
 
-/* 登録種類数に合わせて列数を自動調整 */
+/* 登録種類数に応じて列数を調整 */
 function getShotDensity(totalKinds){
-
-  if(totalKinds>=32){
-    return 8;
-  }
-
-  if(totalKinds>=22){
-    return 7;
-  }
-
-  if(totalKinds>=14){
-    return 6;
-  }
-
-  if(totalKinds>=8){
-    return 5;
-  }
-
+  if(totalKinds>=30)return 6;
+  if(totalKinds>=18)return 5;
   return 4;
 }
 
 /* スクショ表示 */
 function renderShot(){
-
-  const o=data.offices.find(
-    x=>x.id===$("shotOffice").value
-  );
-
-  const u=o?.units.find(
-    x=>x.id===$("shotUnit").value
-  );
-
+  const o=data.offices.find(x=>x.id===$("shotOffice").value);
+  const u=o?.units.find(x=>x.id===$("shotUnit").value);
   const el=$("shotResult");
 
-  el.classList.remove(
-    "dense-5",
-    "dense-6",
-    "dense-7",
-    "dense-8"
-  );
+  el.classList.remove("dense-5","dense-6");
 
   if(!u){
     el.innerHTML="<div class='shot-empty'>ユニットを選択してね。</div>";
@@ -1306,102 +1065,57 @@ function renderShot(){
   }
 
   let total=0;
-  let totalKinds=0;
-
   const selectedEdition=$("shotEdition").value;
 
-  /* 表示対象のキャラクターとグッズを整理 */
   const characterData=u.characters.map(c=>{
-
-    const cards=[...c.cards]
+    const cards=[...(c.cards||[])]
       .filter(x=>(Number(x.count)||0)>0)
-      .filter(x=>
-        selectedEdition==="__all__"||
-        x.edition===selectedEdition
-      )
+      .filter(x=>selectedEdition==="__all__"||x.edition===selectedEdition)
       .sort((a,b)=>rank(a.edition)-rank(b.edition));
 
-    const sub=cards.reduce(
-      (s,x)=>s+(Number(x.count)||0),0
-    );
+    const sub=cards.reduce((s,x)=>s+(Number(x.count)||0),0);
 
-    return{
-      name:c.name,
-      cards,
-      sub
-    };
-
+    return{name:c.name,cards,sub};
   }).filter(c=>c.cards.length>0);
 
-  totalKinds=characterData.reduce(
-    (s,c)=>s+c.cards.length,0
-  );
-
+  const totalKinds=characterData.reduce((s,c)=>s+c.cards.length,0);
   const cols=getShotDensity(totalKinds);
 
-  if(cols>4){
-    el.classList.add("dense-"+cols);
-  }
+  if(cols>4)el.classList.add("dense-"+cols);
 
-  let html=`
-    <div class="shot-title">${esc(u.name)}</div>
-  `;
+  let html=`<div class="shot-title">${esc(u.name)}</div>`;
 
   characterData.forEach(c=>{
-
     total+=c.sub;
 
     html+=`
       <div class="shot-character">
-
         <div class="shot-character-heading">
           <h3>${esc(c.name)}</h3>
           <span class="tag">${c.sub}枚</span>
         </div>
 
         <div class="shot-grid" style="--cols:${cols}">
-
           ${c.cards.map(x=>`
             <div class="shot-card">
-
               ${x.bundle?'<span class="shot-star">☆</span>':""}
-
               <img src="${x.image}" alt="">
-
-              <div class="edition">
-                ${esc(x.edition)}
-              </div>
-
-              <div class="count">
-                ${Number(x.count)||0}枚
-              </div>
-
+              <div class="edition">${esc(x.edition)}</div>
+              <div class="count">${Number(x.count)||0}枚</div>
             </div>
           `).join("")}
-
         </div>
-
       </div>
     `;
   });
 
   if(!characterData.length){
-
-    html+=`
-      <div class="shot-empty">
-        この条件で表示できるグッズはまだないよ。
-      </div>
-    `;
+    html+=`<div class="shot-empty">この条件で表示できるグッズはまだないよ。</div>`;
   }
 
   html+=`
-    <div class="shot-total">
-      ユニット合計：${total}枚
-    </div>
-
-    <div class="shot-global-total">
-      全体の迷子合計：${getGlobalTotal()}枚
-    </div>
+    <div class="shot-total">ユニット合計：${total}枚</div>
+    <div class="shot-global-total">全体の迷子合計：${getGlobalTotal()}枚</div>
   `;
 
   el.innerHTML=html;
@@ -1409,19 +1123,12 @@ function renderShot(){
 
 /* バックアップ */
 function exportBackup(){
-
-  const blob=new Blob(
-    [JSON.stringify(data)],
-    {type:"application/json"}
-  );
-
+  const blob=new Blob([JSON.stringify(data)],{type:"application/json"});
   const url=URL.createObjectURL(blob);
-
   const a=document.createElement("a");
 
   a.href=url;
   a.download="ぱしゃっつ管理バックアップ.json";
-
   a.click();
 
   setTimeout(()=>URL.revokeObjectURL(url),1000);
@@ -1429,7 +1136,6 @@ function exportBackup(){
 
 /* 復元 */
 async function importBackup(){
-
   const f=$("backupFile").files[0];
 
   if(!f){
@@ -1440,110 +1146,73 @@ async function importBackup(){
   if(!confirm("現在のデータを置き換えて復元するよ。続ける？"))return;
 
   try{
-
     const d=JSON.parse(await f.text());
-
     if(!Array.isArray(d.offices))throw 0;
 
     data=d;
-
     data.customEditions=data.customEditions||[];
 
     data.offices.forEach(o=>{
       o.units||=[];
       o.units.forEach(u=>{
         u.characters||=[];
-        u.characters.forEach(c=>{
-          c.cards||=[];
-        });
+        u.characters.forEach(c=>c.cards||=[]);
       });
     });
 
-    migrateOldEditions();
-
     await save();
-
     renderAll();
-
     alert("復元したよ！");
-
   }catch(e){
-
     alert("ファイルを読み込めなかったよ");
   }
 }
 
 /* 全画面更新 */
 function renderAll(){
-
   renderOffices();
   updateGlobalTotal();
 
   if(selectedOffice&&office())renderUnits();
-
   if(selectedUnit&&unit())renderCharacters();
-
   if(selectedCharacter&&character())renderGoods();
 }
 
 /* 起動・既存データ引き継ぎ */
 (async()=>{
-
   try{
-
     db=await openDB();
 
     const old=await load();
 
-    if(old&&Array.isArray(old.offices)){
-      data=old;
-    }
+    if(old&&Array.isArray(old.offices))data=old;
 
     data.customEditions=data.customEditions||[];
 
     data.offices.forEach(o=>{
-
       o.units||=[];
 
       o.units.forEach(u=>{
-
         u.characters||=[];
 
         u.characters.forEach(c=>{
           c.cards||=[];
+
           c.cards.forEach(card=>{
-            if(typeof card.bundle!=="boolean"){
-              card.bundle=false;
-            }
+            if(typeof card.bundle!=="boolean")card.bundle=false;
           });
         });
-
       });
-
     });
-
-    /* 旧Private・Actionデータを整理 */
-    const migrated=migrateOldEditions();
 
     renderAll();
 
-    if(migrated){
-      await save();
-      $("notice").textContent=
-        "準備OK！旧Private／Actionの登録を整理してデータを引き継いだよ。";
-    }else{
-      $("notice").textContent=
-        "準備OK！前の登録データを引き継いだよ。";
-    }
+    $("notice").textContent="準備OK！前の登録データを引き継いだよ。";
 
   }catch(e){
-
-    $("notice").textContent=
-      "保存機能を開始できなかったよ。Safariで開き直してね。";
-
+    $("notice").textContent="保存機能を開始できなかったよ。Safariで開き直してね。";
     console.error(e);
   }
-
 })();
 </script>
 
